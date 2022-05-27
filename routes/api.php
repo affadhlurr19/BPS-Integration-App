@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KegiatanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/kegiatan', [KegiatanController::class, 'index']);
+Route::post('/kegiatan/create', [KegiatanController::class, 'store']);
+Route::get('/kegiatan/show/{id_kegiatan}', [KegiatanController::class, 'show']);
+Route::put('/kegiatan/edit/{id_kegiatan}', [KegiatanController::class, 'update']);
+Route::delete('/kegiatan/delete/{id_kegiatan}', [KegiatanController::class, 'destroy']);
