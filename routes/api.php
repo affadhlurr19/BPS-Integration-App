@@ -6,6 +6,7 @@ use App\Http\Controllers\CutiController;
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\PenilaianAngkaKreditController;
 use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\CapaianKinerjaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,3 +43,8 @@ Route::post('/kegiatan/create', [KegiatanController::class, 'store']);
 Route::get('/kegiatan/show/{id_kegiatan}', [KegiatanController::class, 'show']);
 Route::put('/kegiatan/edit/{id_kegiatan}', [KegiatanController::class, 'update']);
 Route::delete('/kegiatan/delete/{id_kegiatan}', [KegiatanController::class, 'destroy']);
+Route::get('/capaian-kinerja', [CapaianKinerjaController::class, 'index']);
+Route::post('/capaian-kinerja/create', [CapaianKinerjaController::class, 'store']);
+Route::get('/capaian-kinerja/show/{id_ckp}', [CapaianKinerjaController::class, 'show']);
+Route::put('/capaian-kinerja/update/{id_ckp}', [CapaianKinerjaController::class, 'update']);
+Route::delete('/capaian-kinerja/destroy/{id_ckp}', [CapaianKinerjaController::class, 'destroy']);
