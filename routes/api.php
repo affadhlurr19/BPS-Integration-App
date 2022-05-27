@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CutiController;
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\PenilaianAngkaKreditController;
+use App\Http\Controllers\KegiatanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +37,8 @@ Route::post('/penilaian-angka-kredit/create', [PenilaianAngkaKreditController::c
 Route::get('/penilaian-angka-kredit/show/{no_dupak}', [PenilaianAngkaKreditController::class, 'show']);
 Route::put('/penilaian-angka-kredit/edit/{no_dupak}', [PenilaianAngkaKreditController::class, 'update']);
 Route::delete('/penilaian-angka-kredit/delete/{no_dupak}', [PenilaianAngkaKreditController::class, 'destroy']);
+Route::get('/kegiatan', [KegiatanController::class, 'index']);
+Route::post('/kegiatan/create', [KegiatanController::class, 'store']);
+Route::get('/kegiatan/show/{id_kegiatan}', [KegiatanController::class, 'show']);
+Route::put('/kegiatan/edit/{id_kegiatan}', [KegiatanController::class, 'update']);
+Route::delete('/kegiatan/delete/{id_kegiatan}', [KegiatanController::class, 'destroy']);
