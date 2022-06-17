@@ -16,8 +16,80 @@
             @endif   
             <div class="card">
                 <div class="card-header">                    
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#tambahCuti">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="modal fade" id="tambahCuti" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Tambah Data Cuti</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ route('pegawai.post.data.cuti') }}" method="post">
+                                        @csrf                                        
+                                        <div class="form-group">
+                                            <label for="">NIP</label>
+                                            <input id="nik" placeholder="Nomor Induk Pegawai" type="text" class="form-control form-control-sm @error('nik') is-invalid @enderror" name="nik" value="{{ Auth::user()->nik }}" required autocomplete="nik" autofocus readonly>
+                                            @error('nik')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror 
+                                        </div>                                                                                                                                                                        
+                                        <div class="form-group">
+                                            <label for="">Tanggal Pengajuan</label>                                                                                                                            
+                                            <input id="tanggal" type="date" class="form-control form-control-sm @error('tgl_pengajuan') is-invalid @enderror" name="tgl_pengajuan" required autocomplete="tgl_pengajuan" autofocus>
+                                            @error('tgl_pengajuan')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror                                                                                                                                                                                            
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Tanggal Mulai dan Tanggal Selesai Cuti</label>
+                                            <div class="row no-gutters">
+                                                <div class="col-6 col-md-6 col-lg-6">
+                                                    <input id="tgl_mulai_cuti" type="date" class="form-control form-control-sm @error('tgl_mulai_cuti') is-invalid @enderror" name="tgl_mulai_cuti" required autocomplete="tgl_mulai_cuti" autofocus>
+                                                    @error('tgl_mulai_cuti')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-6 col-md-6 col-lg-6">
+                                                    <input id="tgl_selesai_cuti" type="date" class="form-control form-control-sm @error('tgl_selesai_cuti') is-invalid @enderror" name="tgl_selesai_cuti" required autocomplete="tgl_selesai_cuti" autofocus>
+                                                    @error('tgl_selesai_cuti')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>                                                                                                                        
+                                        </div>  
+                                        <div class="form-group">
+                                            <label for="">Alasan Cuti</label>
+                                            <textarea style="resize:none;" placeholder="Masukkan Alasan Cuti" name="alasan_cuti" id="alasan_cuti" class="form-control form-control-sm @error('alasan_cuti') is-invalid @enderror"  required autocomplete="alasan_cuti" autofocus></textarea>                                                                                       
+                                            @error('alasan_cuti')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror 
+                                        </div>                                                                                                                                                               
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-sm btn-success">Simpan</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
                     <div class="card-tools">
-                        <form action="{{ route('admin.cari.data.cuti') }}" method="get">
+                        <form action="{{ route('pegawai.cari.data.cuti') }}" method="get">
                             <div class="input-group input-group-sm" style="width: 310px;">
                                 <select name="kategori" class="form-select">
                                     <option value="id_permintaan_cuti">ID Permintaan Cuti</option>                                    
@@ -100,7 +172,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="{{ url('/admin/data-cuti/update/'.$datas->id_permintaan_cuti) }}" method="post">
+                                                    <form action="{{ url('/pegawai/data-cuti/update/'.$datas->id_permintaan_cuti) }}" method="post">
                                                         @csrf
                                                         <div class="form-group">
                                                             <label for="">ID Permintaan Cuti</label>
@@ -158,20 +230,7 @@
                                                                     <strong>{{ $message }}</strong>
                                                                 </span>
                                                             @enderror 
-                                                        </div>  
-                                                        <div class="form-group">
-                                                            <label for="">Status</label>
-                                                            <select class="form-select form-select-sm @error('status') is-invalid @enderror" name="status" required autocomplete="status" autofocus>
-                                                                <option value="Sudah Di Acc" {{ $datas->status == "Sudah Di Acc" ? 'selected' : '' }}>Sudah Di Acc</option>
-                                                                <option value="Belum Di Acc" {{ $datas->status == "Belum Di Acc" ? 'selected' : '' }}>Belum Di Acc</option>
-                                                                <option value="Gagal Di Acc" {{ $datas->status == "Gagal Di Acc" ? 'selected' : '' }}>Gagal Di Acc</option>                                                                
-                                                            </select>
-                                                            @error('status')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror                                                           
-                                                        </div>                                                                                                        
+                                                        </div>                                                                                                                                                               
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
@@ -181,7 +240,7 @@
                                             </div>
                                         </div>
                                     </div>  
-                                    <a href="{{ url('admin/data-cuti/delete/'.$datas->id_permintaan_cuti) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                                    <a href="{{ url('pegawai/data-cuti/delete/'.$datas->id_permintaan_cuti) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
                                 </td>                                
                             </tr>                   
                             @endforeach         

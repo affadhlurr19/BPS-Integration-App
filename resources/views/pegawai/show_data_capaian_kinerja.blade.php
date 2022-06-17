@@ -15,9 +15,87 @@
             </div>                                                                   
             @endif   
             <div class="card">
-                <div class="card-header">                    
+                <div class="card-header">   
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#tambahCKP">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="modal fade" id="tambahCKP" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Tambah Data Capaian Kinerja</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ route('pegawai.post.data.capaian.kinerja') }}" method="post">
+                                        @csrf                                        
+                                        <div class="form-group">
+                                            <label for="">NIP</label>
+                                            <input id="nik" placeholder="Nomor Induk Pegawai" type="text" class="form-control form-control-sm @error('nik') is-invalid @enderror" name="nik" value="{{ Auth::user()->nik }}" required autocomplete="nik" autofocus readonly>
+                                            @error('nik')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror 
+                                        </div>  
+                                        <div class="form-group">
+                                            <label for="">Kategori</label>
+                                            <input id="kategori" placeholder="Masukkan Kategori" type="text" class="form-control form-control-sm @error('kategori') is-invalid @enderror" name="kategori" required autocomplete="kategori" autofocus>
+                                            @error('kategori')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror 
+                                        </div> 
+                                        <div class="form-group">
+                                            <label for="">Periode</label>
+                                            <input id="periode" placeholder="Masukkan Periode" type="text" class="form-control form-control-sm @error('periode') is-invalid @enderror" name="periode" required autocomplete="periode" autofocus>
+                                            @error('periode')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror 
+                                        </div> 
+                                        <div class="form-group">
+                                            <label for="">Detail Pekerjaan</label>
+                                            <input id="detail_pekerjaan" placeholder="Masukkan Detail Pekerjaan" type="text" class="form-control form-control-sm @error('detail_pekerjaan') is-invalid @enderror" name="detail_pekerjaan" required autocomplete="detail_pekerjaan" autofocus>
+                                            @error('detail_pekerjaan')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror 
+                                        </div>                                                                                                                                                                                                                                                                               
+                                        <div class="form-group">
+                                            <label for="">Tanggal Pelaksanaan</label>                                                                                                                            
+                                            <input id="tgl_pelaksanaan" type="date" class="form-control form-control-sm @error('tgl_pelaksanaan') is-invalid @enderror" name="tgl_pelaksanaan" required autocomplete="tgl_pelaksanaan" autofocus>
+                                            @error('tgl_pelaksanaan')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror                                                                                                                                                                                            
+                                        </div>        
+                                        <div class="form-group">
+                                            <label for="">Tanggal Masuk</label>                                                                                                                            
+                                            <input id="tgl_masuk" type="date" class="form-control form-control-sm @error('tgl_masuk') is-invalid @enderror" name="tgl_masuk" required autocomplete="tgl_masuk" autofocus>
+                                            @error('tgl_masuk')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror                                                                                                                                                                                            
+                                        </div>                                            
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-sm btn-success">Simpan</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                   
                     <div class="card-tools">
-                        <form action="{{ route('admin.cari.data.capaian.kinerja') }}" method="get">
+                        <form action="{{ route('pegawai.cari.data.capaian.kinerja') }}" method="get">
                             <div class="input-group input-group-sm" style="width: 310px;">
                                 <select name="kategori" class="form-select">
                                     <option value="id_ckp  ">ID CKP</option>                                    
@@ -93,7 +171,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="{{ url('/admin/data-capaian-kinerja/update/'.$datas->id_ckp) }}" method="post">
+                                                    <form action="{{ url('/pegawai/data-capaian-kinerja/update/'.$datas->id_ckp) }}" method="post">
                                                         @csrf
                                                         <div class="form-group">
                                                             <label for="">ID CKP</label>
@@ -157,26 +235,7 @@
                                                                     <strong>{{ $message }}</strong>
                                                                 </span>
                                                             @enderror                                                                                                                                                                                            
-                                                        </div>   
-                                                        <div class="form-group">
-                                                            <label for="">Catatan Operator</label>
-                                                            <input id="catatan_operator" placeholder="Masukkan Catatan Operator" type="text" class="form-control form-control-sm @error('catatan_operator') is-invalid @enderror" name="catatan_operator" value="{{ $datas->catatan_operator }}" required autocomplete="catatan_operator" autofocus>
-                                                            @error('catatan_operator')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror 
-                                                        </div> 
-                                                        <div class="form-group">
-                                                            <label for="">Nilai</label>
-                                                            <input id="nilai" placeholder="Masukkan Nilai Capaian Kinerja" type="number" min=0 class="form-control form-control-sm @error('nilai') is-invalid @enderror" name="nilai" value="{{ $datas->nilai }}" required autocomplete="nilai" autofocus>
-                                                            @error('nilai')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror 
-                                                        </div>     
-
+                                                        </div>                                                          
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
@@ -186,7 +245,7 @@
                                             </div>
                                         </div>
                                     </div>  
-                                    <a href="{{ url('/admin/data-capaian-kinerja/delete/'.$datas->id_ckp) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                                    <a href="{{ url('/pegawai/data-capaian-kinerja/delete/'.$datas->id_ckp) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
                                 </td>                                
                             </tr>                   
                             @endforeach         

@@ -49,41 +49,85 @@
                 </div>            
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">                
+                        @if(Auth::user()->level == 'admin')
                         <li class="nav-item">
                             <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->route()->getName() === 'admin.dashboard' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i><p>Dashboard</p>
                             </a>
                         </li>   
                         <li class="nav-item">
-                            <a href="{{ route('admin.show.data.pegawai') }}" class="nav-link {{ request()->route()->getName() === 'admin.show.data.pegawai' ? 'active' : '' }}">
+                            <a href="{{ route('admin.show.data.pegawai') }}" class="nav-link {{ request()->route()->getName() === 'admin.show.data.pegawai' || 
+                                request()->route()->getName() === 'admin.cari.data.pegawai' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-briefcase"></i><p>Data Pegawai</p>
                             </a>
                         </li>   
                         <li class="nav-item">
-                            <a href="{{ route('admin.show.data.absensi') }}" class="nav-link {{ request()->route()->getName() === 'admin.show.data.absensi' ? 'active' : '' }}">
+                            <a href="{{ route('admin.show.data.absensi') }}" class="nav-link {{ request()->route()->getName() === 'admin.show.data.absensi' || 
+                                request()->route()->getName() === 'admin.cari.data.absensi' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-concierge-bell"></i><p>Data Absensi</p>
                             </a>
                         </li>   
                         <li class="nav-item">
-                            <a href="{{ route('admin.show.data.cuti') }}" class="nav-link {{ request()->route()->getName() === 'admin.show.data.cuti' ? 'active' : '' }}">
+                            <a href="{{ route('admin.show.data.cuti') }}" class="nav-link {{ request()->route()->getName() === 'admin.show.data.cuti' || 
+                                request()->route()->getName() === 'admin.cari.data.cuti' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-running"></i><p>Data Cuti</p>
                             </a>
                         </li>   
                         <li class="nav-item">
-                            <a href="{{ route('admin.show.data.angka.kredit') }}" class="nav-link {{ request()->route()->getName() === 'admin.show.data.angka.kredit' ? 'active' : '' }}">
+                            <a href="{{ route('admin.show.data.angka.kredit') }}" class="nav-link {{ request()->route()->getName() === 'admin.show.data.angka.kredit' || 
+                                request()->route()->getName() === 'admin.cari.data.angka.kredit' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-sort-numeric-up"></i><p>Data Angka Kredit</p>
                             </a>
                         </li>   
                         <li class="nav-item">
-                            <a href="{{ route('admin.show.data.kegiatan') }}" class="nav-link {{ request()->route()->getName() === 'admin.show.data.kegiatan' ? 'active' : '' }}">
+                            <a href="{{ route('admin.show.data.kegiatan') }}" class="nav-link {{ request()->route()->getName() === 'admin.show.data.kegiatan' || 
+                                request()->route()->getName() === 'admin.cari.data.kegiatan' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-chart-line"></i><p>Data Kegiatan</p>
                             </a>
                         </li>                                                
                         <li class="nav-item">
-                            <a href="{{ route('admin.show.data.capaian.kinerja') }}" class="nav-link {{ request()->route()->getName() === 'admin.show.data.capaian.kinerja' ? 'active' : '' }}">
+                            <a href="{{ route('admin.show.data.capaian.kinerja') }}" class="nav-link {{ request()->route()->getName() === 'admin.show.data.capaian.kinerja' ||
+                                request()->route()->getName() === 'admin.cari.data.capaian.kinerja' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-star-half-alt"></i><p>Data Capaian Kinerja</p>
                             </a>
-                        </li>                 
+                        </li>    
+                        @elseif(Auth::user()->level == 'pegawai')       
+                        <li class="nav-item">
+                            <a href="{{ route('pegawai.show.profile') }}" class="nav-link {{ request()->route()->getName() === 'pegawai.show.profile' ? 'active' : '' }}">                                
+                                <i class="nav-icon fas fa-user"></i><p>My Profile</p>
+                            </a>
+                        </li>   
+                        <li class="nav-item">
+                            <a href="{{ route('pegawai.show.data.absensi') }}" class="nav-link {{ request()->route()->getName() === 'pegawai.show.data.absensi' || 
+                                request()->route()->getName() === 'pegawai.cari.data.absensi' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-concierge-bell"></i><p>Data Absensi</p>
+                            </a>
+                        </li>   
+                        <li class="nav-item">
+                            <a href="{{ route('pegawai.show.data.cuti') }}" class="nav-link {{ request()->route()->getName() === 'pegawai.show.data.cuti' || 
+                                request()->route()->getName() === 'pegawai.cari.data.cuti' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-running"></i><p>Data Cuti</p>
+                            </a>
+                        </li>   
+                        <li class="nav-item">
+                            <a href="{{ route('pegawai.show.data.angka.kredit') }}" class="nav-link {{ request()->route()->getName() === 'pegawai.show.data.angka.kredit' || 
+                                request()->route()->getName() === 'pegawai.cari.data.angka.kredit' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-sort-numeric-up"></i><p>Data Angka Kredit</p>
+                            </a>
+                        </li>   
+                        <li class="nav-item">
+                            <a href="{{ route('pegawai.show.data.kegiatan') }}" class="nav-link {{ request()->route()->getName() === 'pegawai.show.data.kegiatan' || 
+                                request()->route()->getName() === 'pegawai.cari.data.kegiatan' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-chart-line"></i><p>Data Kegiatan</p>
+                            </a>
+                        </li>                                                
+                        <li class="nav-item">
+                            <a href="{{ route('pegawai.show.data.capaian.kinerja') }}" class="nav-link {{ request()->route()->getName() === 'pegawai.show.data.capaian.kinerja' ||
+                                request()->route()->getName() === 'pegawai.cari.data.capaian.kinerja' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-star-half-alt"></i><p>Data Capaian Kinerja</p>
+                            </a>
+                        </li>  
+                        @endif
                         <li class="nav-header">LAINNYA</li>                               
                         <li class="nav-item">
                             <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

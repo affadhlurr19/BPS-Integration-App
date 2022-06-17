@@ -22,8 +22,8 @@ class CreateCapaianKinerjaTable extends Migration
             $table->string('detail_pekerjaan');
             $table->date('tgl_pelaksanaan');
             $table->date('tgl_masuk');
-            $table->string('catatan_operator');
-            $table->integer('nilai');
+            $table->string('catatan_operator')->default('Tidak Ada');
+            $table->integer('nilai')->default(0);
             $table->timestamps();
         });
     }

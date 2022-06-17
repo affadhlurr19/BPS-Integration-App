@@ -20,11 +20,10 @@ class CreateKegiatanTable extends Migration
             $table->string('nama_kegiatan');
             $table->string('asal_kegiatan');
             $table->integer('target');
-            $table->integer('realisasi');
-            $table->integer('satuan');
+            $table->integer('realisasi');            
             $table->date('batas_waktu');
             $table->date('tgl_realisasi');
-            $table->text('keterangan');
+            $table->text('keterangan')->default('Belum Terlaksana');
             $table->timestamps();
         });
     }

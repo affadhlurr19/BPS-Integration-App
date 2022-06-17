@@ -16,8 +16,71 @@
             @endif   
             <div class="card">
                 <div class="card-header">                    
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#tambahAbsensi">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="modal fade" id="tambahAbsensi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Tambah Data Absensi</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ route('pegawai.post.data.absensi') }}" method="post">
+                                        @csrf                                        
+                                        <div class="form-group">
+                                            <label for="">NIP</label>
+                                            <input id="nik" placeholder="Nomor Induk Pegawai" type="text" class="form-control form-control-sm @error('nik') is-invalid @enderror" name="nik" value="{{ Auth::user()->nik }}" required autocomplete="nik" autofocus readonly>
+                                            @error('nik')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror 
+                                        </div>                                                                                                                                                                        
+                                        <div class="form-group">
+                                            <label for="">Tanggal</label>                                                                                                                            
+                                            <input id="tanggal" type="date" class="form-control form-control-sm @error('tanggal') is-invalid @enderror" name="tanggal" required autocomplete="tanggal" autofocus>
+                                            @error('tanggal')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror                                                                                                                                                                                            
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Jam Masuk dan Jam Pulang</label>
+                                            <div class="row no-gutters">
+                                                <div class="col-6 col-md-6 col-lg-6">
+                                                    <input id="jam_masuk" type="time" class="form-control form-control-sm @error('jam_masuk') is-invalid @enderror" name="jam_masuk" required autocomplete="jam_masuk" autofocus>
+                                                    @error('jam_masuk')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-6 col-md-6 col-lg-6">
+                                                    <input id="jam_pulang" type="time" class="form-control form-control-sm @error('jam_pulang') is-invalid @enderror" name="jam_pulang" required autocomplete="jam_pulang" autofocus>
+                                                    @error('jam_pulang')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>                                                                                                                        
+                                        </div>                                                                                                           
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-sm btn-success">Simpan</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
                     <div class="card-tools">
-                        <form action="{{ route('admin.cari.data.absensi') }}" method="get">
+                        <form action="{{ route('pegawai.cari.data.absensi') }}" method="get">
                             <div class="input-group input-group-sm" style="width: 300px;">
                                 <select name="kategori" class="form-select">
                                     <option value="id_absensi">ID Absensi</option>                                    
@@ -76,7 +139,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="{{ url('/admin/data-absensi/update/'.$datas->id_absensi) }}" method="post">
+                                                    <form action="{{ url('/pegawai/data-absensi/update/'.$datas->id_absensi) }}" method="post">
                                                         @csrf
                                                         <div class="form-group">
                                                             <label for="">ID Absensi</label>
@@ -135,7 +198,7 @@
                                             </div>
                                         </div>
                                     </div>  
-                                    <a href="{{ url('/admin/data-absensi/delete/'.$datas->id_absensi) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                                    <a href="{{ url('/pegawai/data-absensi/delete/'.$datas->id_absensi) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
                                 </td>                                
                             </tr>                   
                             @endforeach         

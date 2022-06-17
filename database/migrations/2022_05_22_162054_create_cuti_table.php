@@ -21,7 +21,7 @@ class CreateCutiTable extends Migration
             $table->date('tgl_mulai_cuti');
             $table->date('tgl_selesai_cuti');
             $table->text('alasan_cuti');
-            $table->string('status');
+            $table->string('status')->default('Belum Di Acc');
             $table->timestamps();
         });
     }

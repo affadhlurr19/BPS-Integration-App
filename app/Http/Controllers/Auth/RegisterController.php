@@ -60,8 +60,7 @@ class RegisterController extends Controller
             'agama' => ['required'],
             'tempat_lahir' => ['required'],
             'tanggal_lahir' => ['required'],
-            'nomor_telepon' => ['required'],
-            'password' => ['required', 'string', 'max:13'],        
+            'nomor_telepon' => ['required', 'string', 'max:13'],            
         ]);
     }
 

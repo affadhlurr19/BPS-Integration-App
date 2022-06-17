@@ -25,6 +25,7 @@ class CreatePegawaiTable extends Migration
             $table->string('tempat_lahir');
             $table->string('tanggal_lahir');
             $table->string('nomor_telepon');
+            $table->string('level')->default('pegawai');
             $table->rememberToken();
             $table->timestamps();                                    
         });

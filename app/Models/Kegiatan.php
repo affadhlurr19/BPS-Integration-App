@@ -12,6 +12,6 @@ class Kegiatan extends Model
     public $primaryKey = 'id_kegiatan';
     protected $fillable = [
         'id_kegiatan', 'nik','nama_kegiatan','asal_kegiatan','target',
-        'realisasi', 'satuan', 'batas_waktu', 'tgl_realisasi', 'keterangan'
+        'realisasi', 'batas_waktu', 'tgl_realisasi', 'keterangan'
     ];
 }

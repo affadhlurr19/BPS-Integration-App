@@ -6,14 +6,20 @@
 @section('content')
 <div class="container-fluid">
     <div class="col-12 col-md-12 col-lg-12 mb-3">
-        <div id="chart1"></div>
+        <div id="data_cuti" style="width:100%"></div>
     </div>    
     <div class="row">
         <div class="col-12 col-md-12 col-lg-7 mb-3">
-            <div id="chart2"></div>
+            <div id="data_absensi" style="width:100%"></div>
         </div>
         <div class="col-12 col-md-12 col-lg-5 mb-3">
-            <div id="chart3"></div>
+            <div id="data_kegiatan" style="width:100%"></div>
+        </div>
+        <div class="col-12 col-md-12 col-lg-5 mb-3">
+            <div id="data_capaian" style="width:100%"></div>
+        </div>
+        <div class="col-12 col-md-12 col-lg-7 mb-3">
+            <div id="data_kredit" style="width:100%"></div>
         </div>
     </div>    
 </div>
@@ -22,37 +28,24 @@
 @section('charts')
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script>
-    Highcharts.chart('chart1', {
+    Highcharts.chart('data_cuti', {
         chart: {
             type: 'column'
         },
         title: {
-            text: 'Monthly Average Rainfall'
-        },
-        subtitle: {
-            text: 'Source: WorldClimate.com'
-        },
+            text: 'Statisik Data Cuti yang Sudah di Acc dan Belum di Acc'
+        },        
         xAxis: {
             categories: [
-                'Jan',
-                'Feb',
-                'Mar',
-                'Apr',
-                'May',
-                'Jun',
-                'Jul',
-                'Aug',
-                'Sep',
-                'Oct',
-                'Nov',
-                'Dec'
+                'Belum di Acc',
+                'Sudah di Acc'
             ],
             crosshair: true
         },
         yAxis: {
             min: 0,
             title: {
-                text: 'Rainfall (mm)'
+                text: 'Total Karyawan'
             }
         },
         tooltip: {
@@ -69,63 +62,41 @@
                 borderWidth: 0
             }
         },
+        credits: {
+            enabled: false
+        },
         series: [{
-            name: 'Tokyo',
-            data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
-
-        }, {
-            name: 'New York',
-            data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
-
-        }, {
-            name: 'London',
-            data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
-
-        }, {
-            name: 'Berlin',
-            data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
+            name: 'Jumlah Data',
+            data: [{!! json_encode($data_belum_acc) !!}, {!! json_encode($data_sudah_acc) !!}]
 
         }]
     });
 </script>
 <script>
-    Highcharts.chart('chart2', {
+    Highcharts.chart('data_absensi', {
         chart: {
             type: 'column'
         },
         title: {
-            text: 'Monthly Average Rainfall'
-        },
-        subtitle: {
-            text: 'Source: WorldClimate.com'
-        },
+            text: 'Data Statistik Ketepatan Absensi Pegawai'
+        },        
         xAxis: {
             categories: [
-                'Jan',
-                'Feb',
-                'Mar',
-                'Apr',
-                'May',
-                'Jun',
-                'Jul',
-                'Aug',
-                'Sep',
-                'Oct',
-                'Nov',
-                'Dec'
+                'Jam Masuk',
+                'Jam Pulang'                
             ],
             crosshair: true
         },
         yAxis: {
             min: 0,
             title: {
-                text: 'Rainfall (mm)'
+                text: 'Total'
             }
         },
         tooltip: {
             headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
             pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
             footerFormat: '</table>',
             shared: true,
             useHTML: true
@@ -136,38 +107,30 @@
                 borderWidth: 0
             }
         },
+        credits: {
+            enabled: false
+        },
         series: [{
-            name: 'Tokyo',
-            data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+            name: 'Tepat',
+            data: [{!! json_encode($data_masuk_tepat) !!}, {!! json_encode($data_pulang_tepat) !!}]
 
         }, {
-            name: 'New York',
-            data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
-
-        }, {
-            name: 'London',
-            data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
-
-        }, {
-            name: 'Berlin',
-            data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
+            name: 'Telat',
+            data: [{!! json_encode($data_masuk_telat) !!}, {!! json_encode($data_pulang_telat) !!}]
 
         }]
     });
 </script>
 <script>
-    Highcharts.chart('chart3', {
+    Highcharts.chart('data_kegiatan', {
         chart: {
             type: 'bar'
         },
         title: {
-            text: 'Historic World Population by Region'
-        },
-        subtitle: {
-            text: 'Source: <a href="https://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>'
-        },
+            text: 'Statistik Data Kegiatan yang Sudah Terlaksana dan Belum Terlaksana'
+        },        
         xAxis: {
-            categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
+            categories: ['Terlaksana', 'Belum Terlaksana'],
             title: {
                 text: null
             }
@@ -175,7 +138,7 @@
         yAxis: {
             min: 0,
             title: {
-                text: 'Population (millions)',
+                text: 'Total',
                 align: 'high'
             },
             labels: {
@@ -183,7 +146,7 @@
             }
         },
         tooltip: {
-            valueSuffix: ' millions'
+            valueSuffix: ' Kegiatan'
         },
         plotOptions: {
             bar: {
@@ -191,34 +154,123 @@
                     enabled: true
                 }
             }
+        },        
+        credits: {
+            enabled: false
         },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'top',
-            x: -40,
-            y: 80,
-            floating: true,
-            borderWidth: 1,
-            backgroundColor:
-                Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-            shadow: true
+        series: [{
+            name: 'Kegiatan',
+            data: [{!! json_encode($data_kegiatan_terlaksana) !!}, {!! json_encode($data_kegiatan_blm_terlaksana) !!}]
+        }]
+    });
+</script>
+<script>
+    Highcharts.chart('data_capaian', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Statisik Data Nilai Dari Capaian Kinerja Pegawai di Tahun 2022'
+        },        
+        xAxis: {
+            categories: [
+                '0',
+                '10',
+                '20',
+                '30',
+                '40',
+                '50',
+                '60',
+                '70',
+                '80',
+                '90',
+                '100'
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Total Karyawan'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
         },
         credits: {
             enabled: false
         },
         series: [{
-            name: 'Year 1800',
-            data: [107, 31, 635, 203, 2]
-        }, {
-            name: 'Year 1900',
-            data: [133, 156, 947, 408, 6]
-        }, {
-            name: 'Year 2000',
-            data: [814, 841, 3714, 727, 31]
-        }, {
-            name: 'Year 2016',
-            data: [1216, 1001, 4436, 738, 40]
+            name: 'Nilai',
+            data: [{!! json_encode($data_nilai_0) !!}, {!! json_encode($data_nilai_10) !!}, {!! json_encode($data_nilai_20) !!}, {!! json_encode($data_nilai_30) !!}, {!! json_encode($data_nilai_40) !!}, {!! json_encode($data_nilai_50) !!}, {!! json_encode($data_nilai_60) !!}, {!! json_encode($data_nilai_70) !!}, {!! json_encode($data_nilai_80) !!}, {!! json_encode($data_nilai_90) !!}, {!! json_encode($data_nilai_100) !!}]
+
+        }]
+    });
+</script>
+<script>
+    Highcharts.chart('data_kredit', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Statistik Tanggal Usulan Penilaian Angka Kredit di Tahun 2022'
+        },        
+        xAxis: {
+            categories: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Total',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            }
+        },
+        tooltip: {
+            valueSuffix: ' Kegiatan'
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: true
+                }
+            }
+        },        
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: 'Tanggal Usulan',
+            data: [
+                    {!! json_encode($data_kredit_jan) !!}, 
+                    {!! json_encode($data_kredit_feb) !!}, 
+                    {!! json_encode($data_kredit_mar) !!}, 
+                    {!! json_encode($data_kredit_apr) !!}, 
+                    {!! json_encode($data_kredit_mei) !!}, 
+                    {!! json_encode($data_kredit_jun) !!}, 
+                    {!! json_encode($data_kredit_jul) !!}, 
+                    {!! json_encode($data_kredit_agu) !!}, 
+                    {!! json_encode($data_kredit_sep) !!}, 
+                    {!! json_encode($data_kredit_okt) !!}, 
+                    {!! json_encode($data_kredit_nov) !!}, 
+                    {!! json_encode($data_kredit_des) !!}
+                ]
         }]
     });
 </script>
